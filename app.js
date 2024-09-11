@@ -96,6 +96,16 @@ app.post('/api/question-form/delete/:id', (req, res) => {
     })
 })
 
+app.post('/api/submit-exam', (req, res) => {
+
+    res.json({
+        message: 'Success',
+        code: 200,
+        point : 10,
+        data : {}
+    })
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
 })
@@ -122,6 +132,8 @@ function updateQuestion(req) {
     const questionId = Number(req.params.id)
     let updateQuestion = JSON.parse(req.body.data)
     updateQuestion.id = questionId
+    let oldQuestion = readDatabase().filter(q => q.id === questionId)[0]
+    updateQuestion.wrongCount = oldQuestion.wrongCount
     let updateData = readDatabase().filter(q => q.id !== questionId)
     updateData.push(updateQuestion)
     writeDatabase(updateData)
@@ -151,4 +163,32 @@ function readDatabase() {
 
 function writeDatabase(data) {
     fs.writeFileSync('database.json', JSON.stringify(data, null, 2), 'utf-8')
+}
+
+function weightedRandomSelection(questions, count) {
+    // Tính tổng trọng số
+    const totalWeight = questions.reduce((sum, question) => sum + question.wrongCount, 0);
+
+    // Hàm lấy ngẫu nhiên một câu hỏi dựa trên trọng số
+    function selectRandomQuestion() {
+        let random = Math.random() * totalWeight;
+        for (let i = 0; i < questions.length; i++) {
+            random -= questions[i].wrongCount;
+            if (random <= 0) {
+                return questions[i];
+            }
+        }
+    }
+
+    const selectedQuestions = [];
+    while (selectedQuestions.length < count) {
+        const question = selectRandomQuestion();
+
+        // Đảm bảo không chọn trùng câu hỏi
+        if (!selectedQuestions.includes(question)) {
+            selectedQuestions.push(question);
+        }
+    }
+
+    return selectedQuestions;
 }
