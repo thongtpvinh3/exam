@@ -95,8 +95,20 @@ app.post('/api/question-form/:id', (req, res) => {
 
 app.post('/api/question-form/delete/:id', (req, res) => {
     const questionId = Number(req.params.id)
-    let updateData = readDatabase().filter(q => q.id !== questionId)
-    writeDatabase(updateData)
+    let data = readDatabase()
+    let tempData = []
+    let flag = false
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].id === questionId) {
+            flag = true
+            continue
+        }
+        if (flag === true) {
+            data[i].id = data[i].id - 1
+        }
+        tempData.push(data[i])
+    }
+    writeDatabase(tempData)
     res.json({
         message: 'Success',
         code: 200
@@ -118,7 +130,7 @@ function  getQuestionById(id) {
 
 function addNewQuestion(newQuestion) {
     const database = readDatabase()
-    let lastQuestionId = database[database.length - 1].id
+    let lastQuestionId = database.length
     newQuestion.id = lastQuestionId + 1
     newQuestion.wrongCount = 0
     database.push(newQuestion)
