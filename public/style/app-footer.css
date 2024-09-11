@@ -1,0 +1,23 @@
+/* CSS for footer */
+
+.footer {
+    font-size: 0.875rem;
+    margin-top: 10rem;
+    overflow: hidden;
+}
+
+.footer .content {
+    margin-bottom: 0;
+}
+
+.footer .columns {
+    margin-top: 1rem;
+}
+
+.footer .column {
+    padding: 0;
+}
+
+.footer a {
+    font-size: 0.875rem;
+}

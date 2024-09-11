@@ -1,0 +1,17 @@
+.app-loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.cat-run {
+    width: 25rem;
+    height: 20rem;
+    background-image: url('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOW5tNWFrM29oMmI3ZHFpOGF0dzZ0OWdubHhiczFsOHdyajdmbmVlZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/O7hIMjgr0dTig/giphy.webp'); /* Đường dẫn tới ảnh động GIF con mèo chạy */
+    background-size: cover;
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do exam application</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="style/index-style.css">
+</head>
+<body>
+
+<div class="app-loading">
+    <div class="cat-run"></div>
+</div>
+
+<div class="solar-system">
+    <div id="sun"></div>
+
+    <div class="orbit mercury-orbit"></div>
+    <div class="mercury-spin">
+        <div id="mercury"></div>
+    </div>
+
+    <div class="orbit venus-orbit"></div>
+    <div class="venus-spin">
+        <div id="venus"></div>
+    </div>
+
+    <div class="orbit earth-orbit"></div>
+    <div class="earth-spin">
+        <div class="orbit moon-orbit"></div>
+        <div class="moon-spin">
+            <div id="moon"></div>
+        </div>
+        <img id="earth" src="https://raw.githubusercontent.com/everdimension-personal/codepen-assets/master/earth_small_150.jpg"  alt=""/>
+    </div>
+
+    <div class="orbit mars-orbit"></div>
+    <div class="mars-spin">
+        <div id="mars"></div>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <figure class="image center">
+                <img src="assets/logo.webp" alt="bulma logo" style="max-width: 256px;">
+            </figure>
+        </div>
+    </div>
+</section>
+
+<section class="section main-content">
+    <div class="container">
+        <div class="columns is-flex is-align-items-stretch">
+            <div class="column">
+                <a id="do_exam" class="hover-link-1">
+                    <article class="media notification is-info">
+                        <figure class="media-left">
+                    <span class="icon is-medium">
+                        <i class="fa-solid fa-book fa-2x"></i>
+                    </span>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <h1 class="title is-size-4">...Làm bài kiểm tra</h1>
+                                <p class="is-size-5">
+                                    Bắt đầu làm một bài kiểm tra
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </a>
+            </div>
+            <div class="column">
+                <a id="" class="hover-link-2">
+                    <article class="media notification is-primary">
+                        <figure class="media-left">
+                        <span class="icon is-medium">
+                            <i class="fa-2x fa-solid fa-chart-line"></i>
+                        </span>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <h1 class="title is-size-4">...Thống kê</h1>
+                                <p class="is-size-5">
+                                    Phân tích các lượt làm bài
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </a>
+            </div>
+            <div class="column">
+                <a id="manage_question" class="hover-link-3">
+                    <article class="media notification is-warning">
+                        <figure class="media-left">
+                        <span class="icon is-medium">
+                            <i class="fa-2x fa-solid fa-database"></i>
+                        </span>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <h1 class="title is-size-4">...Câu hỏi</h1>
+                                <p class="is-size-5">
+                                    Quản lí ngân hàng câu hỏi
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer has-background-text-bold-invert">
+    <div class="content has-text-centered">
+        <p>
+            <strong>Web</strong> by <a href="https://web.telegram.org/">Thong</a> &copy; 2024. All rights reserved.
+        </p>
+    </div>
+    <div class="columns is-centered">
+        <div class="column is-2 has-text-centered">
+            <p class="title is-5">Follow Me</p>
+            <div class="is-display-flex is-justify-content-space-around">
+                <a href="https://www.facebook.com/thong.nguyenduy188"><i class="fa-brands fa-facebook fa-2x" style="color:#000;"></i></a>
+                <a href="https://web.telegram.org/"><i class="fab fa-telegram fa-2x" style="color:#000;"></i></a>
+                <a href="https://www.instagram.com/thongnguyenduy"><i class="fab fa-instagram fa-2x" style="color:#000;"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

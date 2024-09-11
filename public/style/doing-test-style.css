@@ -1,0 +1,100 @@
+@import url('loading-screen.css');
+@import url('solar-system-bg.css');
+@import url('common.css');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.solar-system {
+    background-image: linear-gradient(to right top, #2f415b, #263b5d, #1f355f, #192e60, #172760);
+}
+
+.orbit {
+    border: 1px dashed rgba(255, 255, 255, 0.7);
+}
+
+.main-content {
+    flex: 1;
+}
+
+.modal-card-body {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    overflow: hidden;
+}
+
+.timer {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.timer-button {
+    margin-top: 10px;
+}
+
+.fixed-timer {
+    width: 5%;
+    height: 5%;
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-weight: bold;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(122, 239, 100, 0.8);
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.2);
+    z-index: 4;
+    display: none;
+    animation: none;
+}
+
+.blinking {
+    animation: blink 1.75s infinite;
+}
+
+@keyframes blink {
+    0% { background: rgba(122, 239, 100, 0.9); }
+    50% { background: rgb(27, 148, 0); }
+    100% { background: rgba(122, 239, 100, 0.9); }
+}
+
+.critical {
+    background: #ff0000;
+    color: #ffffff;
+}
+
+.app-shadow-border {
+    box-shadow: 10px 10px rgba(255, 255, 255, 0.3);
+}
+
+.button:hover {
+    background-color: #94fac4;
+    cursor: pointer;
+    transform: translateY(-5px);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.app-question-content {
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+.field {
+    margin-left: 3rem !important;
+}

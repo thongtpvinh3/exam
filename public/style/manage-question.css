@@ -1,0 +1,197 @@
+@import url('app-footer.css');
+@import url('loading-screen.css');
+@import url('solar-system-bg.css');
+@import url('notification-box.css');
+@import url('common.css');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.columns {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.column {
+    background-color: rgba(238, 255, 238, 0.9);
+    border: 1px solid #1f1f1f;
+    border-radius: 10px;
+    max-height: 90vh;
+    position: relative;
+    color: white;
+    box-shadow: 20px 20px rgba(0, 0, 0, .15);
+    transition: all .4s ease;
+}
+
+.column input,
+.column select,
+.column button,
+.column textarea {
+    border: 2px solid #1f1f1f;
+    border-radius: 10px;
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+.control:hover button {
+    background-color: #94fac4;
+    cursor: pointer;
+    transform: translateY(-5px);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.is-hidden {
+    display: none;
+}
+
+.panel-collapse p {
+    background-color: white;
+}
+
+a:hover, a:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+.app-section {
+    padding: 2vh 1vh;
+}
+
+/* Custom Scroll bar */
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+}
+
+.custom-scrollbar {
+    background-color: white;
+    height: 37rem;
+    border-radius: 6px;
+    box-shadow: 7px 7px rgba(123, 151, 158, .3);
+    border: 1px solid #d6dee1;
+    overflow: scroll;
+}
+
+.question-content {
+    width: 100%;
+    height: 4em;
+    background-color: #3db2a9;
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+    border-radius: 0.5em;
+    border: 2px solid #000000;
+}
+
+.question-content:hover {
+    background-color: #16af93;
+    cursor: pointer;
+    transform: translateY(-5px);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 5px 5px rgba(0, 0, 0, .15);
+}
+
+.question-content p {
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    max-height: 3em;
+}
+
+.question-content strong {
+    font-weight: bold;
+    color: black;
+}
+
+.app-loader-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(38, 38, 38, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal_content {
+    width: 45vw;
+    border-radius: 10px;
+    border: 2px solid #000000;
+}
+
+#notification_modal {
+    z-index: 11;
+}
+
+.app-shadow-border {
+    border: 2px solid #1f1f1f;
+    box-shadow: 15px 15px rgba(0, 0, 0, 0.4);
+}
+
+.title p {
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.title.center {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.title.center button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#btn_delete_question:hover {
+    background-color: #fd5454;
+}

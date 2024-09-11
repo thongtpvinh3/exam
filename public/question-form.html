@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new question to the Storage</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="style/manage-question.css">
+</head>
+<body>
+<div class="app-loading">
+    <div class="cat-run"></div>
+</div>
+<div class="solar-system">
+    <div id="sun"></div>
+
+    <div class="orbit mercury-orbit"></div>
+    <div class="mercury-spin">
+        <div id="mercury"></div>
+    </div>
+
+    <div class="orbit venus-orbit"></div>
+    <div class="venus-spin">
+        <div id="venus"></div>
+    </div>
+
+    <div class="orbit earth-orbit"></div>
+    <div class="earth-spin">
+        <div class="orbit moon-orbit"></div>
+        <div class="moon-spin">
+            <div id="moon"></div>
+        </div>
+        <img id="earth"
+             src="https://raw.githubusercontent.com/everdimension-personal/codepen-assets/master/earth_small_150.jpg"
+             alt=""/>
+    </div>
+
+    <div class="orbit mars-orbit"></div>
+    <div class="mars-spin">
+        <div id="mars"></div>
+    </div>
+</div>
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <figure class="image center">
+                <img title="Back to home" onclick="backToHome()" src="assets/logo.webp" alt="bulma logo" style="cursor: pointer; max-width: 196px;">
+            </figure>
+        </div>
+    </div>
+</section>
+
+<section class="section main-content has-background-dark-30">
+    <div class="container">
+        <div class="columns is-flex is-align-items-stretch">
+            <div class="column">
+                <div class="section px-3 mx-auto" style="max-width: 80%;">
+                    <h1 class="title center is-justify-content-center">Nhập thông tin câu hỏi</h1>
+                    <form id="questionForm">
+                        <div class="field">
+                            <label class="label">Nội dung câu hỏi</label>
+                            <div class="control">
+                                <label>
+                                    <textarea class="textarea" name="question" type="text" placeholder="Nhập nội dung câu hỏi..."></textarea>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Câu trả lời</label>
+                            <div class="control">
+                                <label>
+                                    <input class="input" type="text" name="answerA" placeholder="Nhập đáp án A" required>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <label>
+                                    <input class="input" type="text" name="answerB" placeholder="Nhập đáp án B" required>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <label>
+                                    <input class="input" type="text" name="answerC" placeholder="Nhập đáp án C" required>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <label>
+                                    <input class="input" type="text" name="answerD" placeholder="Nhập đáp án D" required>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Đáp án đúng</label>
+                            <div class="control">
+                                <div class="select">
+                                    <label>
+                                        <select name="trueAnswer" required>
+                                            <option value="" disabled selected>Chọn đáp án đúng</option>
+                                            <option value="A">Đáp án A</option>
+                                            <option value="B">Đáp án B</option>
+                                            <option value="C">Đáp án C</option>
+                                            <option value="D">Đáp án D</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field is-grouped is-grouped-right mt-2">
+                            <div class="control">
+                                <button id="submit_create_new_question" class="button is-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div style="background-color: rgba(255,255,255,0); width: 3%;"></div>
+            <div class="column">
+                <div class="section px-3 mx-auto" style="max-width: 100%;">
+                    <h1 class="title center is-justify-content-center">Câu hỏi hiện có</h1>
+                    <div id="all_question_content" class="app-section custom-scrollbar">
+                        <div class="app-loader-wrapper">
+                            <div class="app-loader"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="notification_modal" class="modal is-justify-content-center is-align-items-center">
+    <div class="modal_content">
+        <div class="container is-display-flex is-justify-content-space-between modal-header">
+            <div id="modal_header" class="title is-size-5 marginless"></div>
+            <button><i id="modal_close" class="fa-solid fa-circle-xmark close"></i></button>
+        </div>
+        <div class="modal_desc">
+            <p id="modal_desc_text"></p>
+        </div>
+    </div>
+</div>
+
+<div id="question_info_modal" class="modal is-justify-content-center is-align-items-center">
+    <div class="modal_content section app-shadow-border">
+        <div class="title center">
+            <p>Thông tin câu hỏi</p>
+            <button><i id="info_question_modal_close" class="fa-solid fa-circle-xmark close"></i></button>
+        </div>
+        <form id="question_info_form">
+            <div class="field">
+                <label class="label">Nội dung câu hỏi</label>
+                <div class="control">
+                    <label>
+                        <textarea id="iq_question" class="textarea" name="question" type="text" placeholder="Nhập nội dung câu hỏi..."></textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Câu trả lời</label>
+                <div class="control">
+                    <label>
+                        <input id="iq_ansA" class="input" type="text" name="answerA" placeholder="Nhập đáp án A" required>
+                    </label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <label>
+                        <input id="iq_ansB" class="input" type="text" name="answerB" placeholder="Nhập đáp án B" required>
+                    </label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <label>
+                        <input id="iq_ansC" class="input" type="text" name="answerC" placeholder="Nhập đáp án C" required>
+                    </label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <label>
+                        <input id="iq_ansD" class="input" type="text" name="answerD" placeholder="Nhập đáp án D" required>
+                    </label>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Đáp án đúng</label>
+                <div class="control">
+                    <div class="select">
+                        <label>
+                            <select id="iq_ans" name="trueAnswer" required>
+                                <option value="" disabled selected>Chọn đáp án đúng</option>
+                                <option value="A">Đáp án A</option>
+                                <option value="B">Đáp án B</option>
+                                <option value="C">Đáp án C</option>
+                                <option value="D">Đáp án D</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="field is-grouped is-grouped-right mt-2">
+            <div class="control">
+                <button id="btn_update_question" class="button is-primary">Cập nhật</button>
+            </div>
+            <div class="control">
+                <button id="btn_delete_question" class="button is-danger">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+<script src="js/common.js"></script>
+<script src="js/manage-question.js"></script>
+</body>
+</html>

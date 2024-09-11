@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doing Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="style/doing-test-style.css">
+</head>
+<body>
+
+<div class="app-loading">
+    <div class="cat-run"></div>
+</div>
+
+<div class="solar-system">
+    <div id="sun"></div>
+
+    <div class="orbit mercury-orbit"></div>
+    <div class="mercury-spin">
+        <div id="mercury"></div>
+    </div>
+
+    <div class="orbit venus-orbit"></div>
+    <div class="venus-spin">
+        <div id="venus"></div>
+    </div>
+
+    <div class="orbit earth-orbit"></div>
+    <div class="earth-spin">
+        <div class="orbit moon-orbit"></div>
+        <div class="moon-spin">
+            <div id="moon"></div>
+        </div>
+        <img id="earth" src="https://raw.githubusercontent.com/everdimension-personal/codepen-assets/master/earth_small_150.jpg"  alt=""/>
+    </div>
+
+    <div class="orbit mars-orbit"></div>
+    <div class="mars-spin">
+        <div id="mars"></div>
+    </div>
+</div>
+
+<section class="main-content">
+    <div class="container">
+        <div class="section">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <div class="box">
+                        <div class="timer" id="timer">30:00:00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="section">
+            <div id="questions_content" class="container">
+            </div>
+        </section>
+    </div>
+</section>
+
+<div class="container is-display-flex is-justify-content-center pb-6" style="color: yellow">
+    <button id="submit_exam" class="button is-primary" style="display:none;">Submit Exam</button>
+</div>
+
+<div id="startModal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Bắt đầu bài thi ngay bây giờ ?</p>
+        </header>
+        <section class="modal-card-body">
+            <div class="has-text-centered">
+                <button class="button is-primary" id="start_exam">Bắt Đầu</button>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div class="fixed-timer" id="fixedTimer"><p>30:00</p></div>
+
+</body>
+
+<script src="js/script.js"></script>
+<script src="js/common.js"></script>
+<script src="js/countdown.js"></script>
+<script src="js/doing-test-script.js"></script>
+
+</html>

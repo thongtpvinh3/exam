@@ -1,0 +1,36 @@
+.modal_content {
+    border-radius: 4px;
+    position: relative;
+    width: 30vw;
+    max-width: 90%;
+    background: #fff;
+    padding: 1em 2em;
+}
+
+.modal-header {
+    margin-top: 2vh;
+}
+
+.modal {
+    position: fixed;
+    display: flex;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal_desc {
+    padding: 1em;
+}
+
+.close {
+    color: #006B6899;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
