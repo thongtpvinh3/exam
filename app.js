@@ -13,19 +13,11 @@ app.use(express.static(path.join(__dirname)))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors())
 
-app.get('/api/random-question', (req, res) => {
-    res.json({
-        message: 'Success',
-        code: 200,
-        data: getRandomQuestion(),
-    })
-})
-
 app.get('/api/questions/random', (req, res) => {
     res.json({
         message: 'Success',
         code: 200,
-        data: getRandomQuestion(),
+        data: getRandomQuestion(5),
     })
 })
 
@@ -111,9 +103,9 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
 })
 
-function getRandomQuestion() {
+function getRandomQuestion(numberOfQuestion) {
     const shuffledQuestion = shuffleArray(readDatabase())
-    return shuffledQuestion.slice(0, 3)
+    return shuffledQuestion.slice(0, numberOfQuestion)
 }
 
 function getQuestionById(id) {
@@ -138,6 +130,18 @@ function updateQuestion(req) {
     let updateData = readDatabase().filter(q => q.id !== questionId)
     updateData.push(updateQuestion)
     writeDatabase(updateData)
+}
+
+function updateWrongCount(questionId) {
+    let data = readDatabase()
+    let tempData = []
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].id === questionId) {
+            data[i].wrongCount = data[i].wrongCount + 1
+        }
+        tempData.push(data[i])
+    }
+    writeDatabase(tempData)
 }
 
 function deleteQuestion(questionId) {
@@ -173,11 +177,14 @@ function getExamResult(answerData) {
     let responseData = []
     for (const key in answerData) {
         if (answerData.hasOwnProperty(key)) {
-            console.log(`${key}: ${answerData[key]}`)
             totalQuestion++
             const checkResult = readDatabase().filter(q => q.id === Number(key)).map(q => {
                 const a = q.trueAnswer === answerData[key]
-                if (a) totalTrue++
+                if (a) {
+                    totalTrue++
+                } else {
+                    updateWrongCount(q.id)
+                }
                 return {
                     id : q.id,
                     check: a,

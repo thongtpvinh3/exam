@@ -21,7 +21,7 @@
       }
     ],
     "trueAnswer": "D",
-    "wrongCount": 0
+    "wrongCount": 1
   },
   {
     "id": 2,
@@ -141,7 +141,7 @@
       }
     ],
     "id": 7,
-    "wrongCount": 0
+    "wrongCount": 1
   },
   {
     "question": "qưqwdwqdwqdwq",
@@ -189,7 +189,7 @@
       }
     ],
     "id": 9,
-    "wrongCount": 0
+    "wrongCount": 1
   },
   {
     "question": "qứqwsqsqsqwws",
@@ -285,7 +285,7 @@
       }
     ],
     "id": 13,
-    "wrongCount": 0
+    "wrongCount": 1
   },
   {
     "question": "wwwwwwwwwwwwwwwwwwww",
@@ -357,7 +357,7 @@
       }
     ],
     "id": 4,
-    "wrongCount": 0
+    "wrongCount": 1
   },
   {
     "question": "8h8h98h98h8h98h98h",
