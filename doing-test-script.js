@@ -54,15 +54,12 @@ $(document).ready(function () {
     $('#confirm_submit_exam').on('click', async function () {
 
         $.post('api/submit-exam', mapUserAnswer, function(response) {
-            console.log(response)
             $('#result_point').text(response['point'])
             $('#result_modal').addClass('is-active')
             $('#confirm_result_exam').click(function () {
                 $('#result_modal').removeClass('is-active')
-                console.log(response.data)
                 for (let i = 0; i < response.data.length; ++i) {
                     const r = response.data[i];
-                    console.log(r['check'])
                     const check = r['check']
                     const qId = r.id
                     const choose = r['choose']
@@ -70,7 +67,6 @@ $(document).ready(function () {
                     const blockId = `block_question_${qId}`
                     const chooseId = `answer_field_q${qId}_${choose}`
                     const correctId = `answer_field_q${qId}_${correct}`
-                    console.log(check)
                     if (!check) {
                         $('#' + blockId).css('background-color', '#ff9292')
                     } else {
