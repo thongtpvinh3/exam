@@ -97,12 +97,13 @@ app.post('/api/question-form/delete/:id', (req, res) => {
 })
 
 app.post('/api/submit-exam', (req, res) => {
-
+    let answerData = req.body
+    const examResult = getExamResult(answerData)
     res.json({
         message: 'Success',
         code: 200,
-        point : 10,
-        data : {}
+        point: examResult['point'],
+        data: examResult['data']
     })
 })
 
@@ -115,7 +116,7 @@ function getRandomQuestion() {
     return shuffledQuestion.slice(0, 3)
 }
 
-function  getQuestionById(id) {
+function getQuestionById(id) {
     return readDatabase().filter(question => question.id === Number(id))[0]
 }
 
@@ -163,6 +164,36 @@ function readDatabase() {
 
 function writeDatabase(data) {
     fs.writeFileSync('database.json', JSON.stringify(data, null, 2), 'utf-8')
+}
+
+function getExamResult(answerData) {
+    const maxPoint = 10
+    let totalQuestion = 0
+    let totalTrue = 0
+    let responseData = []
+    for (const key in answerData) {
+        if (answerData.hasOwnProperty(key)) {
+            console.log(`${key}: ${answerData[key]}`)
+            totalQuestion++
+            const checkResult = readDatabase().filter(q => q.id === Number(key)).map(q => {
+                const a = q.trueAnswer === answerData[key]
+                if (a) totalTrue++
+                return {
+                    id : q.id,
+                    check: a,
+                    choose: answerData[key],
+                    correctAnswer: q.trueAnswer,
+                    correctContent: q.answer.filter(a => a.id === q.trueAnswer)[0].content
+                }
+            })[0]
+            responseData.push(checkResult)
+        }
+    }
+    const lastPoint = (totalTrue / totalQuestion * maxPoint).toFixed(2)
+    return {
+        point : lastPoint,
+        data : responseData
+    }
 }
 
 function weightedRandomSelection(questions, count) {

@@ -90,6 +90,10 @@ body {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+#cancel_submit_exam:hover  {
+    background-color: #ec173b;
+}
+
 .app-question-content {
     border: 1px solid #000000;
     border-radius: 5px;
@@ -97,4 +101,11 @@ body {
 
 .field {
     margin-left: 3rem !important;
+}
+
+.result-point {
+    font-size: 4rem;
+    color:red;
+    text-align: center;
+    margin-bottom: 2rem;
 }

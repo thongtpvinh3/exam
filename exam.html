@@ -70,11 +70,43 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title">Bắt đầu bài thi ngay bây giờ ?</p>
+            <p class="modal-card-title center">Bắt đầu bài thi ngay bây giờ ?</p>
         </header>
         <section class="modal-card-body">
             <div class="has-text-centered">
                 <button class="button is-primary" id="start_exam">Bắt Đầu</button>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div id="confirm_modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title center">Bạn có chắc chắn muốn nộp bài ?</p>
+        </header>
+        <section class="modal-card-body is-display-flex is-justify-content-space-around">
+            <div class="has-text-centered">
+                <button class="button is-primary" style="margin-left: 5em;" id="confirm_submit_exam">I'm sure</button>
+            </div>
+            <div class="has-text-centered">
+                <button class="button is-danger" style="margin-right: 5em;" id="cancel_submit_exam">No, I'm not</button>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div id="result_modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title center has-text-weight-bold">Điểm số của bạn</p>
+        </header>
+        <section class="modal-card-body">
+            <p id="result_point" class="result-point"></p>
+            <div class="has-text-centered">
+                <button class="button is-primary" id="confirm_result_exam">Okey</button>
             </div>
         </section>
     </div>

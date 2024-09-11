@@ -10,11 +10,11 @@ class Question {
     }
 
     getQuestionBlockContent() {
-        let questionBox = $(`<div style="background-color:#7ba7b9;" class="box app-shadow-border"><div class="subtitle section app-question-content">${this.questionContent}</div></div>`)
+        let questionBox = $(`<div id="block_question_${this.id}" style="background-color:#7ba7b9;" class="box app-shadow-border"><div class="subtitle section app-question-content">${this.questionContent}</div></div>`)
 
         for (const a of this.answer) {
             questionBox.append(`
-                <div class="field">
+                <div id="answer_field_q${this.id}_${a.id}" class="field">
                     <label class="radio">
                         <input type="radio" name="q_${this.id}" value="${a.id}">
                         <span class="ml-3">${a.content}</span>
@@ -45,6 +45,59 @@ $(document).ready(function () {
         $('#submit_exam').show()
         $(window).on('scroll resize', checkVisibility)
         checkVisibility()
+    })
+
+    $('#submit_exam').click(async function () {
+        $('#confirm_modal').addClass('is-active')
+    })
+
+    $('#confirm_submit_exam').on('click', async function () {
+
+        $.post('api/submit-exam', mapUserAnswer, function(response) {
+            console.log(response)
+            $('#result_point').text(response['point'])
+            $('#result_modal').addClass('is-active')
+            $('#confirm_result_exam').click(function () {
+                $('#result_modal').removeClass('is-active')
+                console.log(response.data)
+                for (let i = 0; i < response.data.length; ++i) {
+                    const r = response.data[i];
+                    console.log(r['check'])
+                    const check = r['check']
+                    const qId = r.id
+                    const choose = r['choose']
+                    const correct = r['correctAnswer']
+                    const blockId = `block_question_${qId}`
+                    const chooseId = `answer_field_q${qId}_${choose}`
+                    const correctId = `answer_field_q${qId}_${correct}`
+                    console.log(check)
+                    if (!check) {
+                        $('#' + blockId).css('background-color', '#ff9292')
+                    } else {
+                        $('#' + blockId).css('background-color', '#7bd68b')
+                    }
+
+                    $('#' + chooseId).css({
+                        'padding-left' : '1rem',
+                        'border' : '4px solid red',
+                        'border-radius' : '15px',
+                        'margin-left' : '2rem !important'
+                    })
+
+                    $('#' + correctId).css({
+                        'padding-left' : '1rem',
+                        'border' : '4px solid #3af978',
+                        'border-radius' : '15px',
+                        'margin-left' : '2rem !important'
+                    })
+                }
+            })
+        })
+        $('#confirm_modal').removeClass('is-active')
+    })
+
+    $('#cancel_submit_exam').on('click', async function () {
+        $('#confirm_modal').removeClass('is-active')
     })
 })
 
