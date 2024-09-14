@@ -5,6 +5,7 @@ const fs = require('fs')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoDbUtils = require('./mongoDbUtils')
+const {MongoClient} = require("mongodb");
 
 const app = express();
 const PORT = process.env.PORT || 3001
@@ -26,6 +27,19 @@ async function run(func) {
     }
 }
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'))
+})
+
+app.get('/exam', (req, res) => {
+    res.sendFile(path.join(__dirname, 'exam.html'))
+})
+
+app.get('/question-form', (req, res) => {
+    res.sendFile(path.join(__dirname, 'question-form.html'))
+})
+
+// API Get All Questions
 app.get('/api/questions', async (req, res) => {
     await sleep(Math.floor(Math.random() * (1000 - 500 + 1)) + 500)
 
@@ -65,43 +79,68 @@ app.post('/api/question-form', (req, res) => {
     })
 })
 
-
 // API Get Random Question
 app.get('/api/questions/random', (req, res) => {
-    res.json({
-        message: 'Success',
-        code: 200,
-        data: getRandomQuestion(5),
+    let allQuestions = []
+    const getAllQuestions = async (collection) => {
+        allQuestions = await collection.find({}).toArray()
+    }
+
+    run(getAllQuestions).then(_r => {
+        let shuffledQuestion = shuffleArray(allQuestions)
+        res.json({
+            message: 'Success',
+            code: 200,
+            data: shuffledQuestion.slice(0, 5)
+        })
     })
 })
 
+// API get Question by ID
 app.get('/api/questions/:id', (req, res) => {
-    const question = getQuestionById(req.params.id)
-    res.json({
-        message: 'Success',
-        code: 200,
-        data: question,
+    let questionObj
+    const getQuestionById = async (collection) => {
+        questionObj = await collection.findOne({'id': Number(req.params.id)})
+    }
+    run(getQuestionById).then(_r => {
+        res.json({
+            message: 'Success',
+            code: 200,
+            data: questionObj
+        })
     })
 })
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'))
-})
+app.post('/api/question-form/:id', async (req, res) => {
+    const client = new MongoClient('mongodb+srv://thongtpvinh3:RBZkPEdg7Rzgm5.@cluster0.9b2vw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 
-app.get('/exam', (req, res) => {
-    res.sendFile(path.join(__dirname, 'exam.html'))
-})
+    try {
+        await client.connect()
 
-app.get('/question-form', (req, res) => {
-    res.sendFile(path.join(__dirname, 'question-form.html'))
-})
+        const db = client.db('question-db')
+        const collection = db.collection('question')
 
-app.post('/api/question-form/:id', (req, res) => {
-    updateQuestion(req)
-    res.json({
-        message: 'Success',
-        code: 200
-    })
+        let data = req.body.data
+        let updateQuestion = JSON.parse(data)
+
+        // Update document
+        const filter = {id: Number(req.params.id)}
+        const updateOperation = {$set: updateQuestion}
+
+        const result = await collection.updateOne(filter, updateOperation);
+        console.log('Document updated:', result.modifiedCount > 0 ? 'Success' : 'No document matched the filter')
+
+        res.json({
+            message: 'Success',
+            code: 200
+        })
+
+    } catch (err) {
+        console.error('Error:', err)
+    } finally {
+        await client.close();
+    }
+
 })
 
 app.post('/api/question-form/delete/:id', (req, res) => {
