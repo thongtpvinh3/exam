@@ -10,7 +10,7 @@ class Question {
     }
 
     getQuestionBlockContent() {
-        let questionBox = $(`<div id="block_question_${this.id}" style="background-color:#FFEBD8;" class="box app-shadow-border"><div class="subtitle section app-question-content">${this.questionContent}</div></div>`)
+        let questionBox = $(`<div id="block_question_${this.id}" style="background-color:#FFF8C9;" class="box app-shadow-border"><div class="subtitle section app-question-content">${this.questionContent}</div></div>`)
 
         for (const a of this.answer) {
             questionBox.append(`
@@ -75,14 +75,14 @@ $(document).ready(function () {
 
                     $('#' + chooseId).css({
                         'padding-left' : '1rem',
-                        'border' : '4px solid #FF8080',
+                        'border' : '4px solid #D24545',
                         'border-radius' : '15px',
                         'margin-left' : '2rem !important'
                     })
 
                     $('#' + correctId).css({
                         'padding-left' : '1rem',
-                        'border' : '4px solid #748E63',
+                        'border' : '4px solid #365E32',
                         'border-radius' : '15px',
                         'margin-left' : '2rem !important'
                     })

@@ -3,7 +3,8 @@ const path = require('path')
 const shuffleArray = require('./common2')
 const fs = require('fs')
 const bodyParser = require('body-parser')
-const cors = require('cors');
+const cors = require('cors')
+const mongoDbUtils = require('./mongoDbUtils')
 
 const app = express();
 const PORT = process.env.PORT || 3001
@@ -13,31 +14,64 @@ app.use(express.static(path.join(__dirname)))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors())
 
+async function run(func) {
+    try {
+        await mongoDbUtils.connect('question-db')
+        const questionCollection = mongoDbUtils.getCollection('question')
+        await func(questionCollection)
+    } catch (err) {
+        console.error('Error:', err)
+    } finally {
+        await mongoDbUtils.closeConnection()
+    }
+}
+
+app.get('/api/questions', async (req, res) => {
+    await sleep(Math.floor(Math.random() * (1000 - 500 + 1)) + 500)
+
+    function sleep(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms)
+        })
+    }
+
+    let allQuestions = []
+    const getAllQuestions = async (collection) => {
+        allQuestions = await collection.find({}).toArray()
+    }
+
+    run(getAllQuestions).then(_r => {
+        let sortedQuestions = allQuestions.sort((a, b) => b.id - a.id).map(q => ({id: q.id, content: q.question}))
+        res.json({
+            message: 'success',
+            code: 200,
+            totalRecords: sortedQuestions.length,
+            data: sortedQuestions
+        })
+    })
+})
+
+// API Insert New Question
+app.post('/api/question-form', (req, res) => {
+    const insertQuestion = async (collection) => {
+        await collection.insertOne(JSON.parse(req.body.data))
+    }
+    run(insertQuestion).then(r => {
+        res.json({
+            message: 'Success',
+            code: 200,
+            data: r
+        })
+    })
+})
+
+
+// API Get Random Question
 app.get('/api/questions/random', (req, res) => {
     res.json({
         message: 'Success',
         code: 200,
         data: getRandomQuestion(5),
-    })
-})
-
-app.get('/api/questions', async (req, res) => {
-    await sleep(Math.floor(Math.random() * (2000 - 500 + 1)) + 500)
-
-    function sleep(ms) {
-        return new Promise((resolve) => {
-            setTimeout(resolve, ms);
-        });
-    }
-
-    const allQuestions = readDatabase().sort((a, b) => b.id - a.id).map(q => {
-        return {id: q.id, content: q.question}
-    })
-    res.json({
-        message: 'Success',
-        code: 200,
-        totalRecords: allQuestions.length,
-        data: allQuestions
     })
 })
 
@@ -60,16 +94,6 @@ app.get('/exam', (req, res) => {
 
 app.get('/question-form', (req, res) => {
     res.sendFile(path.join(__dirname, 'question-form.html'))
-})
-
-app.post('/api/question-form', (req, res) => {
-    const newQuestion = JSON.parse(req.body.data)
-    addNewQuestion(newQuestion)
-    res.json({
-        message: 'Success',
-        code: 200,
-        data: readDatabase()
-    })
 })
 
 app.post('/api/question-form/:id', (req, res) => {
@@ -104,21 +128,22 @@ app.listen(PORT, () => {
 })
 
 function getRandomQuestion(numberOfQuestion) {
-    const shuffledQuestion = shuffleArray(readDatabase())
+    let allQuestions = []
+    const getAllQuestions = async (collection) => {
+        allQuestions = await collection.find({}).toArray()
+    }
+
+    let shuffledQuestion = []
+
+    run(getAllQuestions).then(_r => {
+        shuffledQuestion = shuffleArray(allQuestions)
+    })
+
     return shuffledQuestion.slice(0, numberOfQuestion)
 }
 
 function getQuestionById(id) {
     return readDatabase().filter(question => question.id === Number(id))[0]
-}
-
-function addNewQuestion(newQuestion) {
-    const database = readDatabase()
-    let lastQuestionId = database.length
-    newQuestion.id = lastQuestionId + 1
-    newQuestion.wrongCount = 0
-    database.push(newQuestion)
-    writeDatabase(database)
 }
 
 function updateQuestion(req) {
@@ -186,7 +211,7 @@ function getExamResult(answerData) {
                     updateWrongCount(q.id)
                 }
                 return {
-                    id : q.id,
+                    id: q.id,
                     check: a,
                     choose: answerData[key],
                     correctAnswer: q.trueAnswer,
@@ -198,35 +223,7 @@ function getExamResult(answerData) {
     }
     const lastPoint = (totalTrue / totalQuestion * maxPoint).toFixed(2)
     return {
-        point : lastPoint,
-        data : responseData
+        point: lastPoint,
+        data: responseData
     }
-}
-
-function weightedRandomSelection(questions, count) {
-    // Tính tổng trọng số
-    const totalWeight = questions.reduce((sum, question) => sum + question.wrongCount, 0);
-
-    // Hàm lấy ngẫu nhiên một câu hỏi dựa trên trọng số
-    function selectRandomQuestion() {
-        let random = Math.random() * totalWeight;
-        for (let i = 0; i < questions.length; i++) {
-            random -= questions[i].wrongCount;
-            if (random <= 0) {
-                return questions[i];
-            }
-        }
-    }
-
-    const selectedQuestions = [];
-    while (selectedQuestions.length < count) {
-        const question = selectRandomQuestion();
-
-        // Đảm bảo không chọn trùng câu hỏi
-        if (!selectedQuestions.includes(question)) {
-            selectedQuestions.push(question);
-        }
-    }
-
-    return selectedQuestions;
 }
