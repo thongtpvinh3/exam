@@ -45,7 +45,7 @@
       }
     ],
     "trueAnswer": "D",
-    "wrongCount": 0
+    "wrongCount": 1
   },
   {
     "id": 3,
@@ -69,7 +69,7 @@
       }
     ],
     "trueAnswer": "D",
-    "wrongCount": 0
+    "wrongCount": 1
   },
   {
     "question": "qe12e1e12e",
@@ -381,7 +381,7 @@
       }
     ],
     "id": 14,
-    "wrongCount": 0
+    "wrongCount": 1
   },
   {
     "question": "qwdqwdqwdqwdqwdqwwqdwqqwdqw",

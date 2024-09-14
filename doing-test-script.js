@@ -10,7 +10,7 @@ class Question {
     }
 
     getQuestionBlockContent() {
-        let questionBox = $(`<div id="block_question_${this.id}" style="background-color:#7ba7b9;" class="box app-shadow-border"><div class="subtitle section app-question-content">${this.questionContent}</div></div>`)
+        let questionBox = $(`<div id="block_question_${this.id}" style="background-color:#FFEBD8;" class="box app-shadow-border"><div class="subtitle section app-question-content">${this.questionContent}</div></div>`)
 
         for (const a of this.answer) {
             questionBox.append(`
@@ -68,21 +68,21 @@ $(document).ready(function () {
                     const chooseId = `answer_field_q${qId}_${choose}`
                     const correctId = `answer_field_q${qId}_${correct}`
                     if (!check) {
-                        $('#' + blockId).css('background-color', '#ff9292')
+                        $('#' + blockId).css('background-color', '#FFC5C5')
                     } else {
-                        $('#' + blockId).css('background-color', '#7bd68b')
+                        $('#' + blockId).css('background-color', '#C7DCA7')
                     }
 
                     $('#' + chooseId).css({
                         'padding-left' : '1rem',
-                        'border' : '4px solid red',
+                        'border' : '4px solid #FF8080',
                         'border-radius' : '15px',
                         'margin-left' : '2rem !important'
                     })
 
                     $('#' + correctId).css({
                         'padding-left' : '1rem',
-                        'border' : '4px solid #3af978',
+                        'border' : '4px solid #748E63',
                         'border-radius' : '15px',
                         'margin-left' : '2rem !important'
                     })
