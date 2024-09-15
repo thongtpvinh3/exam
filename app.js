@@ -67,7 +67,9 @@ app.get('/api/questions', async (req, res) => {
 // API Insert New Question
 app.post('/api/question-form', (req, res) => {
     const insertQuestion = async (collection) => {
-        await collection.insertOne(JSON.parse(req.body.data))
+        let data = JSON.parse(req.body.data)
+        data['wrongCount'] = 0
+        await collection.insertOne(data)
     }
     run(insertQuestion).then(r => {
         res.json({
@@ -165,7 +167,8 @@ app.post('/api/question-form/delete/:id', (req, res) => {
             })
         }
     }
-    run(deleteQuestionById).then(_ => {})
+    run(deleteQuestionById).then(_ => {
+    })
 })
 
 app.post('/api/submit-exam', async (req, res) => {
@@ -200,7 +203,7 @@ app.post('/api/submit-exam', async (req, res) => {
                 if (check) {
                     totalTrue++
                 } else {
-
+                    wrongCountUpdateList.push(q.id)
                 }
                 return {
                     id: q.id,
@@ -212,6 +215,11 @@ app.post('/api/submit-exam', async (req, res) => {
             responseData.push(checkResult)
         }
         const lastPoint = (totalTrue / totalQuestion * maxPoint).toFixed(2)
+        const filter = {id: {$in: wrongCountUpdateList}}
+        const update = {
+            $inc: {wrongCount: 1}
+        }
+        await collection.updateMany(filter, update)
         res.json({
             message: 'Success',
             code: 200,
@@ -228,54 +236,3 @@ app.post('/api/submit-exam', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
 })
-
-// function updateWrongCount(questionId) {
-//     let data = readDatabase()
-//     let tempData = []
-//     for (let i = 0; i < data.length; i++) {
-//         if (data[i].id === questionId) {
-//             data[i].wrongCount = data[i].wrongCount + 1
-//         }
-//         tempData.push(data[i])
-//     }
-//     writeDatabase(tempData)
-// }
-
-// function getExamResult(answerDataMap) {
-//     const maxPoint = 10
-//     let totalQuestion = 0
-//     let totalTrue = 0
-//     let responseData = []
-//     let questionInAnswer = Array.from(answerDataMap.keys())
-//     let wrongCountUpdateList = []
-//
-//     const getListQuestionIn = async (collection) => {
-//         const qListIn = await collection.find({ id : { $in: questionInAnswer } }).toArray()
-//
-//         for (const [key, value] in answerDataMap) {
-//             totalQuestion++
-//             const checkResult = qListIn.filter(q => q.id === Number(key)).map(q => {
-//                 const check = q.trueAnswer === value
-//                 if (check) {
-//                     totalTrue++
-//                 } else {
-//
-//                 }
-//                 return {
-//                     id : q.id,
-//                     check: check,
-//                     choose: value,
-//                     correctAnswer: q.correctAnswer
-//                 }
-//             })[0]
-//             responseData.push(checkResult)
-//         }
-//         const lastPoint = (totalTrue / totalQuestion * maxPoint).toFixed(2)
-//         return {
-//             point: lastPoint,
-//             data: responseData
-//         }
-//     }
-//     return run(getListQuestionIn(questionInAnswer)).then(_ => {})
-//
-// }
