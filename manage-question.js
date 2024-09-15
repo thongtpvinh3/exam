@@ -65,11 +65,11 @@ $(document).ready(async function () {
 
     $('#btn_delete_question').click(function () {
         const idQuestion = $('#question_info_form').prop('question_id')
-        $.post("/api/question-form/delete/" + idQuestion, function (response) {
+        $.post("/api/question-form/delete/" + idQuestion, async function (response) {
             if (response.code === 200) {
                 showNotificationSuccess('Xóa câu hỏi thành công')
                 $('#question_info_modal').css('visibility', 'hidden').css('opacity', '0')
-                loadAllQuestions()
+                await loadAllQuestions()
             } else {
                 showNotificationFailed('Xóa câu hỏi thất bại')
             }
