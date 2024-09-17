@@ -3,6 +3,7 @@
 @import url('solar-system-bg.css');
 @import url('notification-box.css');
 @import url('common.css');
+@import url('navbar-menu.css');
 
 body, html {
     margin: 0;
