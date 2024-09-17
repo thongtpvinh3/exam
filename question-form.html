@@ -130,6 +130,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="field">
+                            <label class="label">Chuyên đề</label>
+                            <div class="control" style="max-width: 36.2%;">
+                                <div class="select">
+                                    <label>
+                                        <select name="chuyenDe" required>
+                                            <option value="" disabled selected>Chọn chuyên đề</option>
+                                            <option value="1">1 - Hệ thống chính trị, tổ chức bộ máy của Đảng, Nhà nước, các tổ chức chính trị-xã hội</option>
+                                            <option value="2">2 - Quản lý hành chính nhà nước</option>
+                                            <option value="3">3 - Công chức, công vụ</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="field is-grouped is-grouped-right mt-2">
                             <div class="control">
                                 <button id="submit_create_new_question" class="button is-primary">Submit</button>
@@ -142,6 +157,14 @@
             <div class="column">
                 <div class="section px-3 mx-auto" style="max-width: 100%;">
                     <h1 class="title center is-justify-content-center">Câu hỏi hiện có</h1>
+                    <div class="navbar-test">
+                        <nav class="is-family-monospace">
+                            <a onclick="filterQuestionsByType('1')" title="Hệ thống chính trị, tổ chức bộ máy của Đảng, Nhà nước, các tổ chức chính trị-xã hội">Chuyên đề 1</a>
+                            <a onclick="filterQuestionsByType('2')" title="Quản lý hành chính nhà nước">Chuyên đề 2</a>
+                            <a onclick="filterQuestionsByType('3')" title="Công chức, công vụ">Chuyên đề 3</a>
+                            <div class="animation start-home"></div>
+                        </nav>
+                    </div>
                     <div id="all_question_content" class="app-section custom-scrollbar">
                         <div class="app-loader-wrapper">
                             <div class="app-loader"></div>
@@ -152,18 +175,6 @@
         </div>
     </div>
 </section>
-
-<div id="notification_modal" class="modal is-justify-content-center is-align-items-center">
-    <div class="modal_content">
-        <div class="container is-display-flex is-justify-content-space-between modal-header">
-            <div id="modal_header" class="title is-size-5 marginless"></div>
-            <button><i id="modal_close" class="fa-solid fa-circle-xmark close"></i></button>
-        </div>
-        <div class="modal_desc">
-            <p id="modal_desc_text"></p>
-        </div>
-    </div>
-</div>
 
 <div id="question_info_modal" class="modal is-justify-content-center is-align-items-center">
     <div class="modal_content section app-shadow-border">
@@ -225,6 +236,21 @@
                     </div>
                 </div>
             </div>
+            <div class="field">
+                <label class="label">Chuyên đề</label>
+                <div class="control" style="max-width: 36.2%;">
+                    <div class="select">
+                        <label>
+                            <select id="iq_type" name="chuyenDe" required>
+                                <option value="" disabled selected>Chọn chuyên đề</option>
+                                <option value="1">1 - Hệ thống chính trị, tổ chức bộ máy của Đảng, Nhà nước, các tổ chức chính trị-xã hội</option>
+                                <option value="2">2 - Quản lý hành chính nhà nước</option>
+                                <option value="3">3 - Công chức, công vụ</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </form>
         <div class="field is-grouped is-grouped-right mt-2">
             <div class="control">
@@ -233,6 +259,18 @@
             <div class="control">
                 <button id="btn_delete_question" class="button is-danger">Xóa</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<div id="notification_modal" class="modal is-justify-content-center is-align-items-center">
+    <div class="modal_content">
+        <div class="container is-display-flex is-justify-content-space-between modal-header">
+            <div id="modal_header" class="title is-size-5 marginless"></div>
+            <button><i id="modal_close" class="fa-solid fa-circle-xmark close"></i></button>
+        </div>
+        <div class="modal_desc">
+            <p id="modal_desc_text"></p>
         </div>
     </div>
 </div>

@@ -13,7 +13,7 @@
 }
 
 .menu-btn {
-    position: absolute;
+    position: fixed;
     z-index: 6;
     left: 0.5vw;
     top: 1vh;

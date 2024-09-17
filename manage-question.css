@@ -40,7 +40,7 @@ body {
     background-color: rgba(238, 255, 238, 0.9);
     border: 1px solid #1f1f1f;
     border-radius: 10px;
-    max-height: 90vh;
+    max-height: 100vh;
     position: relative;
     color: white;
     box-shadow: 20px 20px rgba(0, 0, 0, .15);
@@ -195,4 +195,61 @@ a:hover, a:focus {
 
 #btn_delete_question:hover {
     background-color: #fd5454;
+}
+
+.navbar-test nav {
+    margin: 0 auto 0;
+    position: relative;
+    height: 5vh;
+    background-color: #DEF9C4;
+    border-radius: 5px;
+    font-size: 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.navbar-test nav a {
+    line-height: 50px;
+    font-size: 1rem;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    cursor: pointer;
+    font-weight: 1000;
+}
+
+.navbar-test nav .animation {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    z-index: 0;
+    transition: all .5s ease 0s;
+    border-radius: 8px;
+}
+
+.navbar-test a:nth-child(1),
+.navbar-test a:nth-child(2),
+.navbar-test a:nth-child(3){
+    width: calc(100% / 3);
+}
+
+.navbar-test nav .start-home, a:nth-child(1):hover ~ .animation {
+    width: calc(100% / 3);
+    left: 0;
+    background-color: #9CDBA6;
+}
+
+.navbar-test nav .start-about, a:nth-child(2):hover ~ .animation {
+    width: calc(100% / 3);
+    left: calc(100% / 3);
+    background-color: #50B498;
+}
+
+.navbar-test nav .start-blog, a:nth-child(3):hover ~ .animation {
+    width: calc(100% / 3);
+    left: calc(100% / 3 * 2);
+    background-color: #468585;
 }

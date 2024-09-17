@@ -54,7 +54,7 @@ app.get('/api/questions', async (req, res) => {
     }
 
     run(getAllQuestions).then(_r => {
-        let sortedQuestions = allQuestions.sort((a, b) => b.id - a.id).map(q => ({id: q.id, content: q.question}))
+        let sortedQuestions = allQuestions.sort((a, b) => b.id - a.id)
         res.json({
             message: 'success',
             code: 200,

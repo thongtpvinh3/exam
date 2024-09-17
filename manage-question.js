@@ -10,6 +10,7 @@ $(document).ready(async function () {
         const data = {
             question: formData.get('question'),
             trueAnswer: formData.get('trueAnswer'),
+            type : formData.get('chuyenDe'),
             answer: [
                 {id: 'A', content: formData.get('answerA')},
                 {id: 'B', content: formData.get('answerB')},
@@ -44,6 +45,7 @@ $(document).ready(async function () {
         const updateData = {
             question: $('#iq_question').val(),
             trueAnswer: $('#iq_ans').val(),
+            type : $('#iq_type').val(),
             answer: [
                 {id: 'A', content: $('#iq_ansA').val()},
                 {id: 'B', content: $('#iq_ansB').val()},
@@ -77,6 +79,18 @@ $(document).ready(async function () {
     })
 })
 
+let typeClick = '1'
+function filterQuestionsByType(type) {
+    typeClick = type + ''
+    let mainQuestionDom = $('#all_question_content')
+    mainQuestionDom.empty()
+    const questionsByType = allQuestions.filter(q => q['type'] === type)
+    for (let question of questionsByType) {
+        let questionDom = getQuestionUi(question)
+        mainQuestionDom.append(questionDom)
+    }
+}
+
 function clearContentFormQuestion() {
     let questionFormDom = $('#questionForm')
     questionFormDom.find('input, textarea, select').val('');
@@ -85,8 +99,8 @@ function clearContentFormQuestion() {
 
 function getQuestionUi(question) {
     return `
-        <div id="${question['id']}" class="question-content" onclick="getQuestionInfo(${question['id']})" title="Câu ${question['id']}: ${question['content']}">
-            <p><strong>Câu ${question['id']}: </strong>${question['content']}</p>
+        <div id="${question['id']}" class="question-content" onclick="getQuestionInfo(${question['id']})" title="Câu ${question['id']}: ${question['question']}">
+            <p><strong>Câu ${question['id']}: </strong>${question['question']}</p>
         </div>
     `
 }
@@ -109,6 +123,7 @@ function getQuestionInfo(id) {
             $('#iq_ansC').val(resData['answer'][2]['content'])
             $('#iq_ansD').val(resData['answer'][3]['content'])
             $('#iq_ans').val(resData['trueAnswer'])
+            $('#iq_type').val(resData['type'])
 
             $('#question_info_modal').show().css('visibility', 'visible').css('opacity', '1')
         }
@@ -118,12 +133,7 @@ function getQuestionInfo(id) {
 async function loadAllQuestions() {
     allQuestions = await getAllQuestions()
     if (allQuestions !== 'null') {
-        let mainQuestionDom = $('#all_question_content')
-        mainQuestionDom.empty()
-        for (let question of allQuestions) {
-            let questionDom = getQuestionUi(question)
-            mainQuestionDom.append(questionDom)
-        }
+        filterQuestionsByType(typeClick + '')
     }
 }
 
