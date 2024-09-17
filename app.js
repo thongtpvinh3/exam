@@ -40,7 +40,7 @@ app.get('/question-form', (req, res) => {
 
 // API Get All Questions
 app.get('/api/questions', async (req, res) => {
-    await sleep(Math.floor(Math.random() * (2000 - 1000 + 1)) + 1000)
+    await sleep(Math.floor(Math.random() * (2000 - 1500 + 1)) + 1500)
 
     function sleep(ms) {
         return new Promise((resolve) => {
