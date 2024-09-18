@@ -1,8 +1,6 @@
 let allQuestions = []
 
 $(document).ready(async function () {
-    navbarHoverAnimation()
-
     await loadAllQuestions()
 
     $('#questionForm').on('submit', function (event) {
@@ -79,34 +77,42 @@ $(document).ready(async function () {
             }
         })
     })
+
+    navbarHoverAnimation()
 })
 
 let typeClick = '1'
 function filterQuestionsByType(type) {
-    let animationDom = $('.animation').css('width', 'calc(100% / 3)')
+    let animationDom = $('.animation')
     switch (type) {
         case '1' :
+            window.localStorage.setItem('oldWidth', 'calc(100% / 3)')
+            window.localStorage.setItem('oldLeft', '0')
+            window.localStorage.setItem('oldBgColor', '#9CDBA6')
             animationDom.css({
                 'left' : '0',
                 'background-color' : '#9CDBA6'
             })
             break
         case '2':
+            window.localStorage.setItem('oldWidth', 'calc(100% / 3)')
+            window.localStorage.setItem('oldLeft', 'calc(100% / 3)')
+            window.localStorage.setItem('oldBgColor', '#50B498')
             animationDom.css({
                 'left' : 'calc(100% / 3)',
                 'background-color' : '#50B498'
             })
             break
         case '3':
+            window.localStorage.setItem('oldWidth', 'calc(100% / 3)')
+            window.localStorage.setItem('oldLeft', 'calc(100% / 3 * 2)')
+            window.localStorage.setItem('oldBgColor', '#468585')
             animationDom.css({
                 'left' : 'calc(100% / 3 * 2)',
                 'background-color' : '#468585'
             })
             break
     }
-    window.localStorage.setItem('oldWidth', animationDom.css('width'))
-    window.localStorage.setItem('oldLeft', animationDom.css('left'))
-    window.localStorage.setItem('oldBgColor', animationDom.css('background-color'))
 
     typeClick = type + ''
     let mainQuestionDom = $('#all_question_content')
