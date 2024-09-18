@@ -1,35 +1,7 @@
 let allQuestions = []
 
 $(document).ready(async function () {
-    $('.navbar-test a:nth-child(2)').hover(
-        function() {
-            $('.animation').css({
-                'width': 'calc(100% / 3)',
-                'left': 'calc(100% / 3)',
-                'background-color': '#50B498'
-            });
-        }
-    )
-
-    $('.navbar-test a:nth-child(1)').hover(
-        function() {
-            $('.animation').css({
-                'width': 'calc(100% / 3)',
-                'left': '',
-                'background-color': '#9CDBA6'
-            });
-        }
-    )
-
-    $('.navbar-test a:nth-child(3)').hover(
-        function() {
-            $('.animation').css({
-                'width': 'calc(100% / 3)',
-                'left': 'calc(100% / 3 * 2)',
-                'background-color': '#468585'
-            });
-        }
-    )
+    navbarHoverAnimation()
 
     await loadAllQuestions()
 
@@ -132,6 +104,10 @@ function filterQuestionsByType(type) {
             })
             break
     }
+    window.localStorage.setItem('oldWidth', animationDom.css('width'))
+    window.localStorage.setItem('oldLeft', animationDom.css('left'))
+    window.localStorage.setItem('oldBgColor', animationDom.css('background-color'))
+
     typeClick = type + ''
     let mainQuestionDom = $('#all_question_content')
     mainQuestionDom.empty()
@@ -204,6 +180,59 @@ async function getAllQuestions() {
             }
         })
     })
+}
+
+function navbarHoverAnimation() {
+    $('.navbar-test a:nth-child(2)').hover(
+        function() {
+            $('.animation').css({
+                'width': 'calc(100% / 3)',
+                'left': 'calc(100% / 3)',
+                'background-color': '#50B498'
+            })
+        },
+        function() {
+            $('.animation').css({
+                'width': localStorage.getItem('oldWidth'),
+                'left': localStorage.getItem('oldLeft'),
+                'background-color': localStorage.getItem('oldBgColor'),
+            });
+        }
+    )
+
+    $('.navbar-test a:nth-child(1)').hover(
+        function() {
+            $('.animation').css({
+                'width': 'calc(100% / 3)',
+                'left': '',
+                'background-color': '#9CDBA6'
+            })
+        },
+        function() {
+            $('.animation').css({
+                'width': localStorage.getItem('oldWidth'),
+                'left': localStorage.getItem('oldLeft'),
+                'background-color': localStorage.getItem('oldBgColor'),
+            });
+        }
+    )
+
+    $('.navbar-test a:nth-child(3)').hover(
+        function() {
+            $('.animation').css({
+                'width': 'calc(100% / 3)',
+                'left': 'calc(100% / 3 * 2)',
+                'background-color': '#468585'
+            })
+        },
+        function() {
+            $('.animation').css({
+                'width': localStorage.getItem('oldWidth'),
+                'left': localStorage.getItem('oldLeft'),
+                'background-color': localStorage.getItem('oldBgColor'),
+            });
+        }
+    )
 }
 
 function backToHome() {
