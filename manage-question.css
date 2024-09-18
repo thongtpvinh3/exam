@@ -236,19 +236,19 @@ a:hover, a:focus {
     width: calc(100% / 3);
 }
 
-.navbar-test nav .start-home, a:nth-child(1):hover ~ .animation {
+.navbar-test nav .start-1, a:nth-child(1):hover ~ .animation {
     width: calc(100% / 3);
     left: 0;
     background-color: #9CDBA6;
 }
 
-.navbar-test nav .start-about, a:nth-child(2):hover ~ .animation {
+.navbar-test a:nth-child(2):hover~ .animation {
     width: calc(100% / 3);
     left: calc(100% / 3);
     background-color: #50B498;
 }
 
-.navbar-test nav .start-blog, a:nth-child(3):hover ~ .animation {
+.navbar-test a:nth-child(3):hover ~ .animation {
     width: calc(100% / 3);
     left: calc(100% / 3 * 2);
     background-color: #468585;

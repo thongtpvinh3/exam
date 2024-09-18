@@ -1,6 +1,36 @@
 let allQuestions = []
 
 $(document).ready(async function () {
+    $('.navbar-test a:nth-child(2)').hover(
+        function() {
+            $('.animation').css({
+                'width': 'calc(100% / 3)',
+                'left': 'calc(100% / 3)',
+                'background-color': '#50B498'
+            });
+        }
+    )
+
+    $('.navbar-test a:nth-child(1)').hover(
+        function() {
+            $('.animation').css({
+                'width': 'calc(100% / 3)',
+                'left': '',
+                'background-color': '#9CDBA6'
+            });
+        }
+    )
+
+    $('.navbar-test a:nth-child(3)').hover(
+        function() {
+            $('.animation').css({
+                'width': 'calc(100% / 3)',
+                'left': 'calc(100% / 3 * 2)',
+                'background-color': '#468585'
+            });
+        }
+    )
+
     await loadAllQuestions()
 
     $('#questionForm').on('submit', function (event) {
@@ -81,6 +111,27 @@ $(document).ready(async function () {
 
 let typeClick = '1'
 function filterQuestionsByType(type) {
+    let animationDom = $('.animation').css('width', 'calc(100% / 3)')
+    switch (type) {
+        case '1' :
+            animationDom.css({
+                'left' : '0',
+                'background-color' : '#9CDBA6'
+            })
+            break
+        case '2':
+            animationDom.css({
+                'left' : 'calc(100% / 3)',
+                'background-color' : '#50B498'
+            })
+            break
+        case '3':
+            animationDom.css({
+                'left' : 'calc(100% / 3 * 2)',
+                'background-color' : '#468585'
+            })
+            break
+    }
     typeClick = type + ''
     let mainQuestionDom = $('#all_question_content')
     mainQuestionDom.empty()
