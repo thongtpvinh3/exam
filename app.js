@@ -92,7 +92,7 @@ app.get('/api/questions/random', (req, res) => {
         res.json({
             message: 'Success',
             code: 200,
-            data: shuffledQuestion.slice(0, 5)
+            data: shuffledQuestion.slice(0, 30)
         })
     })
 })
