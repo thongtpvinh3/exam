@@ -86,7 +86,6 @@ app.get('/api/questions/random', (req, res) => {
     let shuffledQuestions = []
     const getAllQuestions = async (collection) => {
         allQuestions = await collection.find({}).toArray()
-        console.log(allQuestions.length, 99)
         arrayRandomId = getRandomIdArray(30, allQuestions.length)
         shuffledQuestions = allQuestions.filter(q => arrayRandomId.includes(q.id))
     }
@@ -243,7 +242,13 @@ app.listen(PORT, () => {
 })
 
 function getRandomIdArray(num, max) {
-    const numbers = Array.from({ length: max }, (v, i) => i + 1);
-    const shuffledNumbers = numbers.sort(() => 0.5 - Math.random());
-    return shuffledNumbers.slice(0, num);
+    const numbers = Array.from({ length: max }, (v, i) => i + 1)
+    const shuffledNumbers = numbers.sort(() => 0.5 - Math.random())
+    let rs = []
+    for (let i = 0; i < max; i++) {
+        if (!rs.includes(shuffledNumbers[i])) {
+            rs.push(shuffledNumbers[i])
+        }
+    }
+    return rs;
 }

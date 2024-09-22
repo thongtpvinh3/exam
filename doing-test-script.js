@@ -38,13 +38,23 @@ $(document).ready(function () {
     $('#start_exam').click(async function () {
         mapUserAnswer = {}
 
-        listQuestion = await getRandomQuestion()
-        addQuestionToContent(listQuestion)
-
-        startTimer()
-        $('#submit_exam').show()
-        $(window).on('scroll resize', checkVisibility)
-        checkVisibility()
+        getRandomQuestion().then((result) => {
+            if (result['code'] === 200) {
+                listQuestion = result.data
+            }
+        })
+        const interval = setInterval(() => {
+            if (listQuestion.length > 0) {
+                addQuestionToContent(listQuestion)
+                startTimer()
+                $('#submit_exam').show()
+                $(window).on('scroll resize', checkVisibility)
+                checkVisibility()
+                clearInterval(interval)
+            } else {
+                console.log('Waiting to get question from server...')
+            }
+        }, 100)
     })
 
     $('#submit_exam').click(async function () {
@@ -76,25 +86,11 @@ function addQuestionToContent(randomQuestion) {
     }
 }
 
-async function getRandomQuestion() {
-    return new Promise(resolve => {
-        const interval = setInterval(() => {
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-                url: '/api/questions/random'
-            }).then((result) => {
-                if (result['code'] === 200) {
-                    listQuestion = result.data
-                }
-            })
-            if (listQuestion.length > 0) {
-                clearInterval(interval)
-                resolve(listQuestion)
-            } else {
-                console.log('Waiting to get question from server...')
-            }
-        }, 100)
+function getRandomQuestion() {
+    return $.ajax({
+        type: "GET",
+        dataType: 'json',
+        url: '/api/questions/random'
     })
 }
 
