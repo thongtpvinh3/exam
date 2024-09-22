@@ -1,6 +1,5 @@
 const express = require('express')
 const path = require('path')
-const shuffleArray = require('./common2')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoDbUtils = require('./mongoDbUtils')
@@ -88,7 +87,7 @@ app.get('/api/questions/random', (req, res) => {
     const getAllQuestions = async (collection) => {
         allQuestions = await collection.find({}).toArray()
         console.log(allQuestions.length, 99)
-        arrayRandomId = getRandomIdArray(5, allQuestions.length)
+        arrayRandomId = getRandomIdArray(30, allQuestions.length)
         shuffledQuestions = allQuestions.filter(q => arrayRandomId.includes(q.id))
     }
 
