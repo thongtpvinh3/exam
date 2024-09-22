@@ -126,6 +126,7 @@ function filterQuestionsByType(type) {
         let questionDom = getQuestionUi(question)
         mainQuestionDom.append(questionDom)
     }
+    searchQuestion(removeAccents($('#in_search_question').val()).toLowerCase())
 }
 
 function clearContentFormQuestion() {
