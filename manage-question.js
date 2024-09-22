@@ -79,6 +79,10 @@ $(document).ready(async function () {
     })
 
     navbarHoverAnimation()
+
+    $('#in_search_question').on('input', function () {
+        searchQuestion($(this).val().toLowerCase())
+    })
 })
 
 let typeClick = '1'
@@ -239,6 +243,17 @@ function navbarHoverAnimation() {
             });
         }
     )
+}
+
+function searchQuestion(keyword) {
+    let mainQuestionDom = $('#all_question_content')
+    const resultFilter = allQuestions
+        .filter(q => removeAccents(q['question'].toLowerCase()).includes(keyword))
+    mainQuestionDom.empty()
+    for (let question of resultFilter) {
+        let questionDom = getQuestionUi(question)
+        mainQuestionDom.append(questionDom)
+    }
 }
 
 function backToHome() {
