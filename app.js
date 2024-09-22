@@ -83,16 +83,20 @@ app.post('/api/question-form', (req, res) => {
 // API Get Random Question
 app.get('/api/questions/random', (req, res) => {
     let allQuestions = []
+    let arrayRandomId = []
+    let shuffledQuestions = []
     const getAllQuestions = async (collection) => {
         allQuestions = await collection.find({}).toArray()
+        console.log(allQuestions.length, 99)
+        arrayRandomId = getRandomIdArray(5, allQuestions.length)
+        shuffledQuestions = allQuestions.filter(q => arrayRandomId.includes(q.id))
     }
 
     run(getAllQuestions).then(_r => {
-        let shuffledQuestion = shuffleArray(allQuestions)
         res.json({
             message: 'Success',
             code: 200,
-            data: shuffledQuestion.slice(0, 30)
+            data: shuffledQuestions
         })
     })
 })
@@ -224,6 +228,8 @@ app.post('/api/submit-exam', async (req, res) => {
             message: 'Success',
             code: 200,
             point: lastPoint,
+            trueCount : totalTrue,
+            totalQuestion : totalQuestion,
             data: responseData
         })
     } catch (err) {
@@ -236,3 +242,9 @@ app.post('/api/submit-exam', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
 })
+
+function getRandomIdArray(num, max) {
+    const numbers = Array.from({ length: max }, (v, i) => i + 1);
+    const shuffledNumbers = numbers.sort(() => 0.5 - Math.random());
+    return shuffledNumbers.slice(0, num);
+}

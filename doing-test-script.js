@@ -52,44 +52,12 @@ $(document).ready(function () {
     })
 
     $('#confirm_submit_exam').on('click', async function () {
-
-        $.post('api/submit-exam', mapUserAnswer, function(response) {
-            $('#result_point').text(response['point'])
-            $('#result_modal').addClass('is-active')
-            $('#confirm_result_exam').click(function () {
-                $('#result_modal').removeClass('is-active')
-                for (let i = 0; i < response.data.length; ++i) {
-                    const r = response.data[i];
-                    const check = r['check']
-                    const qId = r.id
-                    const choose = r['choose']
-                    const correct = r['correctAnswer']
-                    const blockId = `block_question_${qId}`
-                    const chooseId = `answer_field_q${qId}_${choose}`
-                    const correctId = `answer_field_q${qId}_${correct}`
-                    if (!check) {
-                        $('#' + blockId).css('background-color', '#FFC5C5')
-                    } else {
-                        $('#' + blockId).css('background-color', '#C7DCA7')
-                    }
-
-                    $('#' + chooseId).css({
-                        'padding-left' : '1rem',
-                        'border' : '4px solid #D24545',
-                        'border-radius' : '15px',
-                        'margin-left' : '2rem !important'
-                    })
-
-                    $('#' + correctId).css({
-                        'padding-left' : '1rem',
-                        'border' : '4px solid #365E32',
-                        'border-radius' : '15px',
-                        'margin-left' : '2rem !important'
-                    })
-                }
-            })
-        })
+        pauseTimer()
+        submit()
         $('#confirm_modal').removeClass('is-active')
+        $('#submit_exam').text('Làm lại bài kiểm tra').off('click').click(function () {
+            window.location.href = '/exam'
+        })
     })
 
     $('#cancel_submit_exam').on('click', async function () {
@@ -127,5 +95,44 @@ async function getRandomQuestion() {
                 console.log('Waiting to get question from server...')
             }
         }, 100)
+    })
+}
+
+function submit() {
+    $.post('api/submit-exam', mapUserAnswer, function(response) {
+        $('#result_point').text(`${response['trueCount']}/${response['totalQuestion']}`)
+        $('#result_modal').addClass('is-active')
+        $('#confirm_result_exam').click(function () {
+            $('#result_modal').removeClass('is-active')
+            for (let i = 0; i < response.data.length; ++i) {
+                const r = response.data[i];
+                const check = r['check']
+                const qId = r.id
+                const choose = r['choose']
+                const correct = r['correctAnswer']
+                const blockId = `block_question_${qId}`
+                const chooseId = `answer_field_q${qId}_${choose}`
+                const correctId = `answer_field_q${qId}_${correct}`
+                if (!check) {
+                    $('#' + blockId).css('background-color', '#FFC5C5')
+                } else {
+                    $('#' + blockId).css('background-color', '#C7DCA7')
+                }
+
+                $('#' + chooseId).css({
+                    'padding-left' : '1rem',
+                    'border' : '4px solid #D24545',
+                    'border-radius' : '15px',
+                    'margin-left' : '2rem !important'
+                })
+
+                $('#' + correctId).css({
+                    'padding-left' : '1rem',
+                    'border' : '4px solid #365E32',
+                    'border-radius' : '15px',
+                    'margin-left' : '2rem !important'
+                })
+            }
+        })
     })
 }

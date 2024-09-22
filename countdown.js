@@ -34,6 +34,7 @@ function startTimer() {
             } else {
                 clearInterval(timer)
                 running = false
+                submit()
             }
         }, 1000)
         running = true

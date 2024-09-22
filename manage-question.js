@@ -127,7 +127,7 @@ function filterQuestionsByType(type) {
 function clearContentFormQuestion() {
     let questionFormDom = $('#questionForm')
     questionFormDom.find('input, textarea, select').val('');
-    questionFormDom.find('select').prop('selectedIndex', 0);
+    // questionFormDom.find('select').prop('selectedIndex', 0);
 }
 
 function getQuestionUi(question) {
