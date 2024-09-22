@@ -248,7 +248,7 @@ function navbarHoverAnimation() {
 function searchQuestion(keyword) {
     let mainQuestionDom = $('#all_question_content')
     const resultFilter = allQuestions
-        .filter(q => removeAccents(q['question'].toLowerCase()).includes(keyword))
+        .filter(q => removeAccents(q['question'].toLowerCase()).includes(keyword) && q['type'] === typeClick)
     mainQuestionDom.empty()
     for (let question of resultFilter) {
         let questionDom = getQuestionUi(question)
