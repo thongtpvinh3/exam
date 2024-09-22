@@ -81,7 +81,7 @@ $(document).ready(async function () {
     navbarHoverAnimation()
 
     $('#in_search_question').on('input', function () {
-        searchQuestion($(this).val().toLowerCase())
+        searchQuestion(removeAccents($(this).val()).toLowerCase())
     })
 })
 
