@@ -59,7 +59,7 @@
 
 <section class="main-content">
     <div class="container">
-        <div class="section">
+        <div class="section" id="div_timer">
             <div class="columns is-centered">
                 <div class="column is-half">
                     <div class="box">
@@ -83,11 +83,29 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <p class="modal-card-title center">Bắt đầu bài thi ngay bây giờ ?</p>
+            <p class="modal-card-title center title">Bắt đầu bài thi</p>
         </header>
         <section class="modal-card-body">
+            <h4 class="title" style="font-size: 1.25em;">Chọn một chuyên đề để bắt đầu</h4>
+            <div id="div_select_chuyende" class="app-section is-display-inline-flex is-justify-content-space-around is-align-items-center">
+                <div class="has-text-centered">
+                    <button title="1 - Hệ thống chính trị, tổ chức bộ máy của Đảng, Nhà nước, các tổ chức chính trị-xã hội" class="button app-shadow-border" style="background-color:#DFCCFB;" id="btn_cd1">Chuyên đề 1</button>
+                </div>
+                <div class="has-text-centered">
+                    <button title="2 - Quản lý hành chính nhà nước" class="button app-shadow-border" style="background-color: #FAF3F0;" id="btn_cd2">Chuyên đề 2</button>
+                </div>
+                <div class="has-text-centered">
+                    <button title="3 - Công chức, công vụ" class="button app-shadow-border" style="background-color: #B5C0D0;" id="btn_cd3">Chuyên đề 3</button>
+                </div>
+                <div class="has-text-centered">
+                    <button title="Tổng hợp tất cả các chuyên đề" class="button app-shadow-border" style="background-color: #FFD59E;" id="btn_merge">Tổng hợp</button>
+                </div>
+            </div>
+            <div id="div_description_subject" style="display:none;">
+                <p class="title" style="font-size: 1em; font-weight: 750; text-align: center"></p>
+            </div>
             <div class="has-text-centered">
-                <button class="button is-primary" id="start_exam">Bắt Đầu</button>
+                <button class="button is-primary" style="display:none; margin-top: 10%;" id="start_exam">Bắt Đầu</button>
             </div>
         </section>
     </div>

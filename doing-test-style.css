@@ -30,10 +30,18 @@ body {
     flex: 1;
 }
 
+.modal-card {
+    bottom: 20%;
+}
+
 .modal-card-body {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     overflow: hidden;
+}
+
+#div_timer {
+    display: none;
 }
 
 .timer {
@@ -108,5 +116,10 @@ body {
     font-size: 4rem;
     color:red;
     text-align: center;
+    margin-bottom: 2rem;
+}
+
+#div_select_chuyende {
+    width: 100%;
     margin-bottom: 2rem;
 }

@@ -80,12 +80,19 @@ app.post('/api/question-form', (req, res) => {
 })
 
 // API Get Random Question
-app.get('/api/questions/random', (req, res) => {
+app.get('/api/questions/random/:subject', (req, res) => {
+    const subject = req.params.subject + ''
     let allQuestions = []
     let arrayRandomId = []
     let shuffledQuestions = []
     const getAllQuestions = async (collection) => {
-        allQuestions = await collection.find({}).toArray()
+        if (subject === '4') {
+            allQuestions = await collection.find({}).toArray()
+        } else {
+            const filter = {type : subject}
+            allQuestions = await collection.find(filter).toArray()
+        }
+
         arrayRandomId = getRandomIdArray(30, allQuestions.length)
         shuffledQuestions = allQuestions.filter(q => arrayRandomId.includes(q.id))
     }
@@ -245,8 +252,8 @@ function getRandomIdArray(num, max) {
     const numbers = Array.from({ length: max }, (v, i) => i + 1)
     const shuffledNumbers = numbers.sort(() => 0.5 - Math.random())
     let rs = []
-    for (let i = 0; i < max; i++) {
-        if (!rs.includes(shuffledNumbers[i])) {
+    for (let i = 0; i < num; i++) {
+        if (!rs.includes(shuffledNumbers[i]) && shuffledNumbers[i] !== undefined) {
             rs.push(shuffledNumbers[i])
         }
     }

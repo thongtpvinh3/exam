@@ -35,6 +35,19 @@ $(document).ready(function () {
 
     $modal.addClass('is-active')
 
+    $('#btn_cd1').click(function () {
+        changeThemeWhileClickSubject('1')
+    })
+    $('#btn_cd2').click(function () {
+        changeThemeWhileClickSubject('2')
+    })
+    $('#btn_cd3').click(function () {
+        changeThemeWhileClickSubject('3')
+    })
+    $('#btn_merge').click(function () {
+        changeThemeWhileClickSubject('4')
+    })
+
     $('#start_exam').click(async function () {
         mapUserAnswer = {}
 
@@ -45,6 +58,7 @@ $(document).ready(function () {
         })
         const interval = setInterval(() => {
             if (listQuestion.length > 0) {
+                $('#div_timer').show()
                 addQuestionToContent(listQuestion)
                 startTimer()
                 $('#submit_exam').show()
@@ -90,7 +104,7 @@ function getRandomQuestion() {
     return $.ajax({
         type: "GET",
         dataType: 'json',
-        url: '/api/questions/random'
+        url: '/api/questions/random/' + subject
     })
 }
 
@@ -131,4 +145,69 @@ function submit() {
             }
         })
     })
+}
+
+let subject = 1
+
+function changeThemeWhileClickSubject(subjectId) {
+    let btnCd1Dom = $('#btn_cd1')
+    let btnCd2Dom = $('#btn_cd2')
+    let btnCd3Dom = $('#btn_cd3')
+    let btnMergeDom = $('#btn_merge')
+    let descSubDom = $('#div_description_subject')
+    let descSubPDom = $('#div_description_subject p')
+    descSubDom.hide()
+    switch (subjectId) {
+        case '1':
+            btnCd2Dom.css('background-color', '#FAF3F0').css('box-shadow', 'none')
+            btnCd3Dom.css('background-color', '#B5C0D0').css('box-shadow', 'none')
+            btnMergeDom.css('background-color', '#FFD59E').css('box-shadow', 'none')
+            btnCd1Dom.css({
+                'background-color': '#a670fc',
+                'box-shadow': '5px 5px rgba(166, 112, 252, 0.3)'
+            })
+            descSubDom.show()
+            descSubPDom.text('Hệ thống chính trị, tổ chức bộ máy của Đảng, Nhà nước, các tổ chức chính trị-xã hội')
+            subject = 1
+            break;
+        case '2':
+            btnCd1Dom.css('background-color', '#DFCCFB').css('box-shadow', 'none')
+            btnCd3Dom.css('background-color', '#B5C0D0').css('box-shadow', 'none')
+            btnMergeDom.css('background-color', '#FFD59E').css('box-shadow', 'none')
+            btnCd2Dom.css({
+                'background-color': '#f5a685',
+                'box-shadow': '5px 5px rgba(245, 166, 133, 0.3)'
+            })
+            descSubDom.show()
+            descSubPDom.text('Quản lý hành chính nhà nước')
+            subject = 2
+            break;
+        case '3':
+            btnCd2Dom.css('background-color', '#FAF3F0').css('box-shadow', 'none')
+            btnCd1Dom.css('background-color', '#DFCCFB').css('box-shadow', 'none')
+            btnMergeDom.css('background-color', '#FFD59E').css('box-shadow', 'none')
+            btnCd3Dom.css({
+                'background-color': '#829fcb',
+                'box-shadow': '5px 5px rgba(130, 159, 203, 0.3)'
+            })
+            descSubDom.show()
+            descSubPDom.text('Công chức, công vụ')
+            subject = 3
+            break;
+        case '4':
+            btnCd2Dom.css('background-color', '#FAF3F0').css('box-shadow', 'none')
+            btnCd3Dom.css('background-color', '#B5C0D0').css('box-shadow', 'none')
+            btnCd1Dom.css('background-color', '#DFCCFB').css('box-shadow', 'none')
+            btnMergeDom.css({
+                'background-color': '#ec9a32',
+                'box-shadow': '5px 5px rgba(241, 180, 101, 0.3)'
+            })
+            descSubDom.show()
+            descSubPDom.text('Tổng hợp tất cả các chuyên đề')
+            subject = 4
+            break;
+        default:
+            break;
+    }
+    $('#start_exam').show()
 }
