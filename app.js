@@ -93,7 +93,7 @@ app.get('/api/questions/random/:subject', (req, res) => {
             allQuestions = await collection.find(filter).toArray()
         }
 
-        arrayRandomId = getRandomIdArray(30, allQuestions.length)
+        arrayRandomId = getRandomIdArray(60, allQuestions.length)
         shuffledQuestions = allQuestions.filter(q => arrayRandomId.includes(q.id))
     }
 

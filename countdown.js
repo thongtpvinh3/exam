@@ -1,5 +1,5 @@
 let timer
-let totalSeconds = 30 * 60
+let totalSeconds = 60 * 60
 let running = false
 
 const $timerDisplay = $('#timer')
