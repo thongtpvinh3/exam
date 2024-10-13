@@ -93,7 +93,7 @@ app.get('/api/questions/random/:subject', (req, res) => {
             allQuestions = await collection.find(filter).toArray()
         }
 
-        arrayRandomId = getRandomIdArray(60, allQuestions.length)
+        arrayRandomId = getRandomIdArray(60, allQuestions)
         shuffledQuestions = allQuestions.filter(q => arrayRandomId.includes(q.id))
     }
 
@@ -248,8 +248,9 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
 })
 
-function getRandomIdArray(num, max) {
-    const numbers = Array.from({ length: max }, (v, i) => i + 1)
+function getRandomIdArray(num, allQuestion) {
+    // const numbers = Array.from({ length: max }, (v, i) => i + 1)
+    const numbers = allQuestion.map(q => q.id)
     const shuffledNumbers = numbers.sort(() => 0.5 - Math.random())
     let rs = []
     for (let i = 0; i < num; i++) {
