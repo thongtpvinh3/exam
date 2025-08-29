@@ -1,11 +1,146 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Upload Any File</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .modal-background {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .upload-area {
+            border: 2px dashed #dbdbdb;
+            padding: 20px;
+            text-align: center;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #dbdbdb;
+        }
+        .progress {
+            height: 10px;
+            background-color: #3273dc;
+            transition: width 0.3s ease;
+        }
+        .success-message {
+            color: #23d160;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
+        #progressText {
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 <body>
+<button id="openModal" class="button is-primary">Open Upload</button>
 
-</body>
-</html>l
+<div id="uploadModal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Upload a file</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="upload-area" id="dropZone">
+                <div class="play-icon">
+            <span class="icon">
+              <i class="fas fa-upload"></i>
+            </span>
+                </div>
+                <p>Drag and drop files to upload</p>
+                <p>Your file will be private until you publish your profile.</p>
+                <input type="file" id="fileInput" style="display: none;">
+                <button class="button is-info" id="selectFiles">Select files</button>
+            </div>
+            <div class="box mt-4" id="fileInfo" style="display: none;">
+                <figure class="image is-64x64">
+                    <img src="https://via.placeholder.com/64" alt="File">
+                </figure>
+                <span id="fileName"></span>
+                <progress class="progress is-info" id="progressBar" value="0" max="100">0%</progress>
+                <span id="progressText"></span>
+                <span id="fileSize"></span>
+                <div class="success-message" id="successMsg">Success</div>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <a class="button is-link">Step-by-step guide</a>
+        </footer>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#openModal").click(function() {
+            $("#uploadModal").addClass("is-active");
+        });
+
+        $(".modal .delete, .modal-background").click(function() {
+            $("#uploadModal").removeClass("is-active");
+        });
+
+        $("#selectFiles").click(function() {
+            $("#fileInput").click();
+        });
+
+        $("#fileInput").on("change", function(e) {
+            let file = e.target.files[0];
+            if (file) {
+                $("#fileInfo").show();
+                $("#fileName").text(file.name);
+                let fileSizeKB = file.size / 1024;
+                $("#fileSize").text(fileSizeKB.toFixed(0) + " KB");
+
+                simulateUpload(fileSizeKB);
+            }
+        });
+
+        let dropZone = $("#dropZone");
+
+        dropZone.on("dragover", function(e) {
+            e.preventDefault();
+            $(this).addClass("has-background-info-light");
+        });
+
+        dropZone.on("dragleave", function(e) {
+            e.preventDefault();
+            $(this).removeClass("has-background-info-light");
+        });
+
+        dropZone.on("drop", function(e) {
+            e.preventDefault();
+            $(this).removeClass("has-background-info-light");
+            let file = e.originalEvent.dataTransfer.files[0];
+            if (file) {
+                $("#fileInfo").show();
+                $("#fileName").text(file.name);
+                let fileSizeKB = file.size / 1024;
+                $("#fileSize").text(fileSizeKB.toFixed(0) + " KB");
+
+                simulateUpload(fileSizeKB);
+            }
+        });
+
+        function simulateUpload(totalKB) {
+            let uploadedKB = 0;
+            let interval = setInterval(function() {
+                uploadedKB += (totalKB / 100); // Simulate 1% increment
+                let progress = Math.min((uploadedKB / totalKB) * 100, 100);
+                $("#progressBar").val(progress);
+                let progressText = $("#progressText");
+                progressText.text(Math.floor(uploadedKB) + " / " + Math.floor(totalKB) + " KB");
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    $("#successMsg").show();
+                    progressText.text(Math.floor(totalKB) + " / " + Math.floor(totalKB) + " KB");
+                }
+            }, 100);
+        }
+    });
+</script>
