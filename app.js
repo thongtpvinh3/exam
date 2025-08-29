@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const mongoDbUtils = require('./mongoDbUtils')
+const mongoDbUtils = require('./js/mongoDbUtils')
 const {MongoClient} = require("mongodb");
 
 const app = express();
@@ -26,15 +26,19 @@ async function run(func) {
 }
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'))
+    res.sendFile(path.join(__dirname, '/html/index.html'))
 })
 
 app.get('/exam', (req, res) => {
-    res.sendFile(path.join(__dirname, 'exam.html'))
+    res.sendFile(path.join(__dirname, '/html/exam.html'))
 })
 
 app.get('/question-form', (req, res) => {
-    res.sendFile(path.join(__dirname, 'question-form.html'))
+    res.sendFile(path.join(__dirname, '/html/question-form.html'))
+})
+
+app.get('/utilities', (req, res) => {
+    res.sendFile(path.join(__dirname, '/html/utilities.html'))
 })
 
 // API Get All Questions

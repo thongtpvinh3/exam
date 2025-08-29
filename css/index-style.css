@@ -1,7 +1,7 @@
-@import url('app-footer.css');
-@import url('loading-screen.css');
-@import url('solar-system-bg.css');
-@import url('navbar-menu.css');
+@import url('/css/app-footer.css');
+@import url('/css/loading-screen.css');
+@import url('/css/solar-system-bg.css');
+@import url('/css/navbar-menu.css');
 
 body, html {
     margin: 0;
@@ -39,6 +39,11 @@ body {
 }
 
 .hover-link-3 {
+    text-decoration: none;
+    display: block;
+}
+
+.hover-link-4 {
     text-decoration: none;
     display: block;
 }

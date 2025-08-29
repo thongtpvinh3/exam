@@ -5,4 +5,5 @@ $(document).ready(function () {
 
     $('#do_exam').attr('href', '/exam')
     $('#manage_question').attr('href', '/question-form')
+    $('#utility').attr('href', '/utilities')
 })

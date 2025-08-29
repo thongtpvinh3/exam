@@ -1,9 +1,9 @@
-@import url('app-footer.css');
-@import url('loading-screen.css');
-@import url('solar-system-bg.css');
-@import url('notification-box.css');
-@import url('common.css');
-@import url('navbar-menu.css');
+@import url('/css/app-footer.css');
+@import url('/css/loading-screen.css');
+@import url('/css/solar-system-bg.css');
+@import url('/css/notification-box.css');
+@import url('/css/common.css');
+@import url('/css/navbar-menu.css');
 
 body, html {
     margin: 0;
